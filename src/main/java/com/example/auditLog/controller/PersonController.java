@@ -4,6 +4,7 @@ import com.example.auditLog.entity.Person;
 import com.example.auditLog.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,11 +22,9 @@ public class PersonController {
 
   @RequestMapping(value = {"/save"}, method = RequestMethod.POST, produces = {
       MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
-  public void save() {
+  public void save(@RequestBody Person person) {
     try {
-      Person person1 = new Person();
-      person1.setName("manika");
-      personService.save(person1);
+      personService.save(person);
     } catch (Exception e) {
       System.out.print(e);
     }
@@ -35,5 +34,15 @@ public class PersonController {
       MediaType.APPLICATION_JSON_VALUE})
   public String get() {
     return "working";
+  }
+
+  @RequestMapping(value = {"/update"}, method = RequestMethod.POST, produces = {
+      MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+  public void update(@RequestBody Person person) {
+    try {
+      personService.update(person);
+    } catch (Exception e) {
+      System.out.print(e);
+    }
   }
 }
